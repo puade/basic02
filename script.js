@@ -222,3 +222,48 @@ function displayAlert(message) {
 
 // AKHIR UCAPAN //
 
+
+
+// ANIMASI COUNT ANGKA //
+    // Fungsi untuk animasi hitung angka
+    function countUpTo(element, duration) {
+      const target = parseInt(element.getAttribute('data-target')); // Ambil angka target dari data-target
+      let currentNumber = 0;  // Mulai dari angka 0
+      const step = target / (duration / 50); // Menghitung jumlah langkah per interval
+
+      const interval = setInterval(() => {
+          currentNumber += step;
+          if (currentNumber >= target) {
+              currentNumber = target;
+              clearInterval(interval); // Berhenti jika sudah mencapai target
+          }
+          element.innerText = Math.round(currentNumber); // Pembulatan agar tampil lebih rapi
+      }, 50); // Interval dalam milidetik (50ms)
+  }
+
+  // Fungsi untuk memulai animasi hanya ketika elemen terlihat
+  function handleIntersection(entries, observer) {
+      entries.forEach(entry => {
+          if (entry.isIntersecting) {
+              // Menentukan durasi animasi berdasarkan angka terbesar
+              const targets = document.querySelectorAll('.counter');
+              const maxTarget = Math.max(...Array.from(targets).map(e => parseInt(e.getAttribute('data-target'))));
+              const duration = maxTarget * 50; // Durasi animasi berdasarkan angka terbesar
+
+              // Jika elemen terlihat, jalankan fungsi hitung angka dengan durasi yang sama
+              countUpTo(entry.target, duration);
+              observer.unobserve(entry.target); // Hentikan pengamatan setelah animasi dimulai
+          }
+      });
+  }
+
+  // Menyiapkan Intersection Observer
+  const observer = new IntersectionObserver(handleIntersection, {
+      threshold: 0.5 // Elemen dianggap terlihat jika 50% dari elemen terlihat di layar
+  });
+
+  // Pilih semua elemen dengan kelas 'counter' dan mulai mengamati
+  const counters = document.querySelectorAll('.counter');
+  counters.forEach(counter => {
+      observer.observe(counter);
+  });
