@@ -19,13 +19,6 @@
   font-style: normal;
 }
 
-@font-face {
-  font-family: 'Cambria'; /* Nama font yang akan digunakan */
-  src: url('asset/font/cambria.ttc') format('truetype'); /* Lokasi dan format font */
-  font-weight: normal;
-  font-style: normal;
-}
-
 
 body, html {
   height: 100%;
@@ -73,7 +66,7 @@ body, html {
 }
 
 .frame-cover img{
-  width: 40%;
+  width: 25%;
 }
 
 .gif-background {
@@ -768,4 +761,11 @@ padding-bottom: 50px;
   padding: 16px;
   text-align: center;
   color: rgb(0, 0, 0);
+}
+
+
+.counter {
+  font-family: 'Arial Narrow';
+  font-weight: bold;
+  color: #3498db;
 }
